@@ -1,0 +1,14 @@
+# Leitura de dados
+pandas>=2.0.0
+odfpy>=1.4.0
+
+# Jupyter para notebooks
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Visualização de dados
+matplotlib
+seaborn
+plotly
+scikit-learn
+scipy
