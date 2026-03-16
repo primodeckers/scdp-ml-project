@@ -6,6 +6,7 @@ env/
 # Dados sensíveis / não versionar
 DiariasEPassagens.csv
 DiariasEPassagens_ultimos_2_anos.csv
+DiariasEPassagens*.csv
 
 # Python
 __pycache__/
