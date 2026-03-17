@@ -1,0 +1,24 @@
+#;Nome do campo;Tipo sugerido;Unidade ou valores;Descrição
+1;Código órgão superior;Numérico (inteiro);Código único;Identificador do órgão superior ao qual a despesa está vinculada (ex.: 20000 = Presidência da República).
+2;Nome órgão superior;Categórico (texto);—;Nome do órgão superior (ex.: PRESIDENCIA DA REPUBLICA).
+3;Código órgão;Numérico (inteiro);Código único;Identificador do órgão (pode coincidir com o órgão superior).
+4;Nome órgão;Categórico (texto);—;Nome do órgão.
+5;Código unidade gestora;Numérico (float);Código único;Identificador da unidade gestora que realizou o gasto. Pode haver nulos em casos de consolidação.
+6;Nome unidade gestora;Categórico (texto);—;Nome da unidade gestora (ex.: SECT DE SEG PRESIDENCIAL/GSIPR).
+7;Nome servidor;Categórico (texto);—;Nome do servidor que realizou a viagem ou recebeu a diária.
+8;Cargo;Categórico (texto);—;Cargo do servidor. Apresenta muitos nulos na base, útil para análises quando preenchido.
+9;Data início viagem;Data;AAAA-MM-DD;Data de início da viagem.
+10;Data término viagem;Data/hora;AAAA-MM-DD HH:MM:SS;Data e hora de término da viagem.
+11;Motivo;Categórico (texto);—;Motivo oficial da viagem (ex.: Nacional - A Serviço, Audiência, COMITIVA/ESCAV PRESIDENCIAL, Viagem - Reunião). Fundamental para análise de necessidade e sustentabilidade.
+12;Valor total;Numérico (decimal);Reais (R$);Valor total da despesa do registro (diárias + passagens do trecho). Variável alvo em regressão.
+13;Início trecho;Data/hora;AAAA-MM-DD HH:MM:SS;Início do trecho de deslocamento (quando há origem/destino).
+14;Término trecho;Data/hora;AAAA-MM-DD HH:MM:SS;Término do trecho.
+15;Município origem;Categórico (texto);—;Município de origem do trecho. Muitos nulos quando o registro é só diária (sem trecho de passagem).
+16;UF origem;Categórico (texto);Sigla UF (2 letras);Unidade federativa de origem. Muitos nulos junto com Município origem.
+17;Município destino;Categórico (texto);—;Município de destino do trecho. Muitos nulos nos mesmos casos.
+18;UF destino;Categórico (texto);Sigla UF;Unidade federativa de destino. Muitos nulos.
+19;Número diárias;Numérico (decimal);Quantidade;Número de diárias pagas no registro (formato pode usar vírgula decimal, ex.: 2,00 ou ,50).
+20;Valor diárias;Numérico (decimal);Reais (R$);Valor em reais das diárias. Formato pode usar vírgula decimal. Candidato a target ou feature.
+21;Meio de transporte;Categórico (texto);—;Meio utilizado no trecho: Veículo Oficial, Aéreo, Rodoviário, Veículo Próprio, Fluvial, Ferroviário, Marítimo. Relevante para sustentabilidade. Poucos nulos.
+22;Categoria passagem;Categórico (texto);—;Categoria da passagem (ex.: Classe Econômica). Muitos nulos quando não há passagem (só diária).
+23;Valor passagem;Numérico (decimal);Reais (R$);Valor pago em passagens no trecho. Zero quando não há passagem. Candidato a target ou feature.
