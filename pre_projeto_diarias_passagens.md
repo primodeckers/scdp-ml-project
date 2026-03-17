@@ -37,6 +37,24 @@
 
 ---
 
+### 3.1 Exploração da Opção A — Regressão
+
+**Objetivo:** Prever o **valor da despesa** (valor total, valor de diárias ou valor de passagem) a partir de características da viagem e do órgão, para apoiar orçamento, metas de redução de custos e auditoria.
+
+**Formulação do problema (supervisionado — regressão):**
+- **Variável alvo (target):** uma entre:
+  - **Valor total** — custo total do registro (diárias + passagens); boa para orçamento geral.
+  - **Valor diárias** — quando o foco é apenas diárias (muitos registros têm passagem = 0).
+  - **Valor passagem** — quando o foco é custo de deslocamento (subset onde há passagem > 0).
+- **Variáveis preditoras (candidatas):**
+  - **Numéricas:** Código órgão superior, Código órgão, Código unidade gestora, **Número diárias**, duração da viagem (derivada de Data início/término), mês/ano (derivados).
+  - **Categóricas (encoding):** Nome órgão superior, Nome órgão, Nome unidade gestora, **Motivo**, **Meio de transporte**, Categoria passagem (quando disponível), UF origem/destino (quando disponível).
+- **Métricas típicas:** RMSE, MAE, R² (e eventualmente MAPE para interpretação em %). Validação cruzada ou hold-out temporal (se quiser respeitar ordem no tempo).
+- **Cuidados:** (1) Valores com vírgula decimal e colunas em texto devem ser convertidos. (2) Outliers em valor total/diárias podem distorcer; considerar log(y) ou tratamento de cauda. (3) Muitas categorias (órgão, servidor) podem levar a overfitting — agrupar ou usar apenas órgão/motivo/meio no início. (4) Decidir se modelar todos os registros ou subconjuntos (ex.: só registros com passagem > 0 para prever valor passagem).
+- **Modelos a explorar:** Regressão linear (baseline), árvore de decisão, random forest, gradient boosting (ex.: sklearn), sempre com pré-processamento (encoding de categorias, eventual escalonamento).
+
+---
+
 ## 4. Dicionário de dados (campos da base)
 
 A base possui **23 colunas**. Abaixo, descrição objetiva de cada uma para uso no pré-projeto e no dicionário em Excel (quando for gerado).
@@ -118,6 +136,8 @@ As fases abaixo seguem a lógica do `template_report_fase_one.ipynb`, mas o dese
 
 ## Referências sugeridas
 
-- Portal da Transparência / dados abertos: base de Diárias e Passagens (SCDP).  
-- Normas sobre diárias e passagens no âmbito da administração federal (ex.: IN da CGU/MPOG, se aplicável).  
+- **Viagens a serviço do governo federal (SCDP)** — Dados abertos: [dados.gov.br – conjunto SCDP](https://dados.gov.br/dados/conjuntos-dados/viagens-a-servico-do-governo-federal-scdp).
+- **Sistema SCDP:** [novoscdp – home](https://www2.scdp.gov.br/novoscdp/home.xhtml).
+- **Portal da Transparência — Viagens a Serviço:** [visão geral](https://portaldatransparencia.gov.br/viagens/visao-geral).
+- Normas sobre diárias e passagens no âmbito da administração federal (ex.: IN da CGU/MPOG, se aplicável).
 - Material da disciplina de Introdução a Machine Learning (regressão, classificação, métricas, validação).
