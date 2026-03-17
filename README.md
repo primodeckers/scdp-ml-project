@@ -83,3 +83,9 @@ Abra **`daily_rates_and_tickets.ipynb`** no Jupyter ou no VS Code/Cursor e execu
 - [Portal da Transparência — Viagens a Serviço](https://portaldatransparencia.gov.br/viagens/visao-geral)
 
 Documentação detalhada do pré-projeto e do dicionário: **`pre_projeto_diarias_passagens.md`**.
+
+---
+
+## Licença
+
+O **código, notebooks e documentação** deste repositório estão sob a **MIT License** — veja o arquivo [LICENSE](LICENSE). Os **dados** da base (diárias e passagens) vêm de conjuntos de dados abertos do governo federal e estão sujeitos às condições de uso da fonte (dados.gov.br / Portal da Transparência).
