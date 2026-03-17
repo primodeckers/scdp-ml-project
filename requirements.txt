@@ -1,6 +1,7 @@
 # Leitura de dados
 pandas>=2.0.0
 odfpy>=1.4.0
+openpyxl>=3.0.0
 
 # Jupyter para notebooks
 jupyter>=1.0.0
