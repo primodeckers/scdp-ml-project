@@ -9,9 +9,11 @@ Projeto de **Introdução a Machine Learning** (mestrado em Ciência de Dados) c
 | Arquivo / pasta | Descrição |
 |-----------------|-----------|
 | **`DiariasEPassagens_ultimos_2_anos.csv`** | Base de dados (diárias e passagens, últimos 2 anos; não versionada se for grande — ver `.gitignore`). |
-| **`daily_rates_and_tickets.ipynb`** | **Relatório preliminar (Fase 1)** do projeto: descrição da base, dicionário, análises descritivas, gráficos, discussão e próximos passos. Adaptado do template ao contexto SCDP (Opção A: regressão). |
+| **`daily_rates_and_tickets.ipynb`** | **Relatório preliminar (Fase 1)** do projeto: descrição da base, dicionário, análises descritivas (3.1.1 ausentes, 3.1.2 correlação), gráficos (3.2), discussão e próximos passos. Opção A: regressão (**Valor total**). |
+| **`one_hot_encoding_variaveis_categoricas.ipynb`** | Complemento: **one-hot encoding** — cardinalidade por coluna, resumo por faixas e ilustração com `pd.get_dummies` em amostra. Depende de `df` já carregado (mesmo kernel que o relatório ou rodar antes a preparação no notebook principal). |
 | **`template_report_fase_one.ipynb`** | Template da disciplina (estrutura do relatório; não preencher diretamente). |
-| **`pre_projeto_diarias_passagens.md`** | Documento de pré-projeto: contexto, problema, opções de ML, dicionário de dados (resumo), fases, qualidade dos dados, referências. |
+| **`pre_projeto_diarias_passagens.md`** | Documento de pré-projeto: contexto institucional (viagens/SCDP), problema, opções de ML, dicionário (resumo), fases, qualidade dos dados, referências. |
+| **`mlflow_planejamento.md`** | Roteiro futuro para **MLflow** (tracking de experimentos, métricas, artefatos) quando a etapa de modelagem avançar. |
 | **`dicionario_dados.xlsx`** | Dicionário de dados em **Excel** (23 variáveis: nome, tipo, unidade, descrição). Entrega conforme template. |
 | **`dicionario_dados.csv`** | Mesmo dicionário em CSV (separador `;`) para versionamento. |
 | **`scdp_exploration.ipynb`** | Notebook de exploração inicial da base (carga, primeiras análises). |
@@ -70,9 +72,13 @@ pip install -r requirements.txt
 
 Coloque o arquivo **`DiariasEPassagens_ultimos_2_anos.csv`** na raiz do projeto (ou ajuste o caminho no notebook).
 
-### 4. Abrir o relatório
+### 4. Abrir o relatório principal
 
-Abra **`daily_rates_and_tickets.ipynb`** no Jupyter ou no VS Code/Cursor e execute as células em ordem (carga, conversão de colunas, resumos, gráficos).
+Abra **`daily_rates_and_tickets.ipynb`** no Jupyter ou no VS Code/Cursor e execute as células **em ordem** (carga, conversão de colunas, resumos, valores ausentes, correlação, gráficos, discussão).
+
+### 5. (Opcional) One-hot e cardinalidade
+
+Para a análise de **categorias** e **`pd.get_dummies`**, abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo kernel** após preparar `df` no relatório principal (ou rode antes as células de carga/conversão do CSV).
 
 ---
 
@@ -82,7 +88,7 @@ Abra **`daily_rates_and_tickets.ipynb`** no Jupyter ou no VS Code/Cursor e execu
 - [Sistema SCDP (novoscdp)](https://www2.scdp.gov.br/novoscdp/home.xhtml)
 - [Portal da Transparência — Viagens a Serviço](https://portaldatransparencia.gov.br/viagens/visao-geral)
 
-Documentação detalhada do pré-projeto e do dicionário: **`pre_projeto_diarias_passagens.md`**.
+Documentação detalhada do pré-projeto e do dicionário: **`pre_projeto_diarias_passagens.md`**. Planejamento futuro de experimentos: **`mlflow_planejamento.md`**.
 
 ---
 

@@ -1,16 +1,53 @@
 # Pré-projeto: Diárias e Passagens — Análise e Machine Learning
 
 **Base:** `DiariasEPassagens_ultimos_2_anos.csv`  
-**Arquivo de trabalho:** `daily_rates_and_tickets.ipynb`  
-**Referência de estrutura:** `template_report_fase_one.ipynb`
+**Relatório preliminar (Fase 1):** `daily_rates_and_tickets.ipynb`  
+**Complemento (one-hot / cardinalidade):** `one_hot_encoding_variaveis_categoricas.ipynb`  
+**Referência de estrutura:** `template_report_fase_one.ipynb`  
+**Planejamento futuro (experimentos):** `mlflow_planejamento.md`
 
 ---
 
 ## 1. Contexto e fonte dos dados
 
 - **Fonte:** Dados abertos do governo federal (portal da transparência / SCDP — Sistema de Custos de Diárias e Passagens), cobrindo os **últimos 2 anos** de gastos com diárias e passagens no âmbito da administração pública federal.
-- **Contextualização:** Cada registro representa um **trecho de viagem** (ou lançamento de diária) vinculado a um servidor, órgão, período e valores. Há múltiplas linhas por viagem quando há mais de um trecho (origem–destino) ou quando diárias e passagens são lançadas separadamente. A base permite analisar padrões de gastos, órgãos, motivos, meios de transporte e valores.
+- **Contextualização (base CSV):** Cada registro representa um **trecho de viagem** (ou lançamento de diária) vinculado a um servidor, órgão, período e valores. Há múltiplas linhas por viagem quando há mais de um trecho (origem–destino) ou quando diárias e passagens são lançadas separadamente. A base permite analisar padrões de gastos, órgãos, motivos, meios de transporte e valores.
 - **Relevância:** Transparência, controle de gastos, identificação de padrões e oportunidades de **redução de custos e de impacto ambiental** (viagens desnecessárias, escolha de meios mais sustentáveis).
+
+### 1.1 O que são “viagens” no âmbito federal
+
+No âmbito da **Administração Pública Federal Direta, das fundações e autarquias**, as **viagens a serviço** correspondem aos **afastamentos** de servidores, militares, empregados públicos e colaboradores eventuais, em caráter **eventual ou transitório**, no território **nacional ou exterior**, período em que fazem jus a **passagens e diárias**. Esses benefícios **indenizam despesas extraordinárias** com pousada, alimentação e locomoção urbana, conforme a **Lei nº 8.112, de 1990**.
+
+Esse enquadramento jurídico ajuda a situar o **objeto** dos dados: não é “qualquer deslocamento”, e sim deslocamentos oficiais com regras de indenização — o que reforça a interpretação das variáveis **Valor total**, **Valor diárias** e **Valor passagem** como **custos vinculados a viagens institucionais**, e não a gastos genéricos do órgão.
+
+### 1.2 Como diárias e passagens entram nos registros (SCDP e processos administrativos)
+
+Na prática administrativa, o que aparece na **base textual/tabular** (como o CSV de dados abertos ligado ao **SCDP**) não é “a viagem em si”, e sim **lançamentos** que seguem regras de sistema e de pagamento:
+
+- Em geral, os registros estão associados à **data de início da viagem** (campo correspondente na base), mas isso **não** significa que todos os valores monetários tenham sido computados naquele mesmo instante.
+- **Viagens com caráter sigiloso:** a disponibilização dos dados pode ocorrer **somente após o encerramento** do período de sigilo, o que afeta **quando** essas linhas passam a existir em bases públicas, em relação a viagens não sigilosas.
+- **Valores de diárias:** costumam refletir situações em que houve **efetivação do pagamento** da parcela correspondente no **sistema financeiro** do governo.
+- **Valores de passagens:** costumam aparecer em função do **registro da emissão** no **SCDP**.
+
+Assim, **data da viagem**, **momento do pagamento** e **momento do registro no SCDP** podem **diferir**. Para o **machine learning**, o modelo só vê o que está na tabela: interpretações como “gasto agregado no mês X” precisam lembrar que o **valor** pode estar mais ligado ao **fluxo de pagamento/registro** do que exclusivamente ao calendário de início da viagem.
+
+### 1.3 SIAFI, cobertura por órgão e comparação entre fontes (contexto apenas)
+
+O **SIAFI** (Sistema Integrado de Administração Financeira do Governo Federal) é outro sistema, com **lógica própria** de registro e consulta. Há **órgãos que não utilizam o SCDP** e tratam fluxos no âmbito financeiro de outra forma.
+
+Em **viagens sigilosas**, as despesas podem ser **pagas e registradas no SIAFI** enquanto, em bases públicas derivadas do ecossistema de transparência/SCDP, a **mesma informação** pode só surgir **depois** do fim do sigilo.
+
+Este pré-projeto usa **apenas** o arquivo CSV dos **dados abertos do conjunto SCDP** (últimos 2 anos). Qualquer comparação futura com totais do SIAFI ou com outros recortes exigiria **definir de antemão** critérios alinhados (datas de referência, órgãos cobertos, o que entra como “diária” ou “passagem” em cada sistema). Nada disso é obrigatório aqui; o texto serve só para **não confundir** uma base com outra.
+
+### 1.4 Síntese: ligação com o problema de machine learning
+
+| Aspecto institucional | Consequência para o pré-projeto (dados + ML) |
+|------------------------|---------------------------------------------|
+| Viagens = deslocamentos com diárias/passagens (Lei 8.112/1990) | Variáveis de valor têm **significado econômico e normativo** claro; facilita narrativa do target (**Valor total** etc.). |
+| Datas na base vs. pagamento e registro no SCDP | Possível **desalinhamento temporal** em agregações; interpretar **features de data** e o **alvo** com cuidado (registro ≠ necessariamente dia da viagem). |
+| Sigilo | Linhas de viagens sigilosas podem **entrar tarde** em bases públicas; pode afetar análises longitudinais se não forem consideradas. |
+| Diárias após pagamento; passagens após emissão no SCDP | O **target** pode refletir **eventos administrativos** (pagamento/emissão), não só características “físicas” da viagem. |
+| SIAFI vs SCDP | O escopo deste trabalho é a **exportação CSV do conjunto em dados.gov.br**; cruzar com SIAFI seria outro projeto, com regras explícitas. |
 
 ---
 
@@ -103,13 +140,14 @@ A base possui **23 colunas**. Abaixo, descrição objetiva de cada uma para uso 
 
 ## 6. Fases do pré-projeto (alinhadas ao template da disciplina)
 
-As fases abaixo seguem a lógica do `template_report_fase_one.ipynb`, mas o desenvolvimento será feito em **`daily_rates_and_tickets.ipynb`**; o template serve só de guia de estrutura do relatório.
+As fases abaixo seguem a lógica do `template_report_fase_one.ipynb`. O **relatório principal** fica em **`daily_rates_and_tickets.ipynb`**; o **complemento** de encoding categórico fica em **`one_hot_encoding_variaveis_categoricas.ipynb`**. O template serve só de guia de estrutura.
 
 | Fase | Conteúdo (resumo) | Onde desenvolver |
 |------|-------------------|-------------------|
-| **1** | **Descrição da base** — Fonte (SCDP/transparência), contextualização, objetivo de uso, problema de pesquisa, tipo de ML (regressão/classificação/outro) e **o que será previsto** (variável alvo). | Texto no relatório + células iniciais do notebook. |
+| **1** | **Descrição da base** — Fonte (SCDP/transparência), contextualização, objetivo de uso, problema de pesquisa, tipo de ML (regressão/classificação/outro) e **o que será previsto** (variável alvo). | Texto no relatório + células iniciais do `daily_rates_and_tickets.ipynb`. |
 | **2** | **Dicionário de dados** — Todas as variáveis, tipos, unidades e significados. Entregar também em Excel (`dicionario_dados.xlsx`) conforme exigência. | Este MD + arquivo Excel + referência no notebook. |
-| **3** | **Análises descritivas iniciais** — Medidas de posição e dispersão (média, mediana, min, max, quartis, dp, CV) para variáveis numéricas principais (Valor total, Valor diárias, Valor passagem, Número diárias); resumos por Motivo e Meio de transporte. | `daily_rates_and_tickets.ipynb`. |
+| **3** | **Análises descritivas iniciais** — Medidas de posição e dispersão (média, mediana, min, max, quartis, dp, CV) para variáveis numéricas principais; **3.1.1** valores ausentes; **3.1.2** correlação com o target. | `daily_rates_and_tickets.ipynb`. |
+| **3b** | **(Complemento)** Cardinalidade de categóricas e **one-hot** (`pd.get_dummies`, `drop_first`) em amostra — apoio à escolha de encoding na modelagem. | `one_hot_encoding_variaveis_categoricas.ipynb` (após `df` preparado). |
 | **4** | **Exploração gráfica** — Histogramas, boxplots, dispersão (ex.: valor total x número diárias; valor por órgão/motivo); séries temporais (gasto por mês). | `daily_rates_and_tickets.ipynb`. |
 | **5** | **Discussão preliminar** — Padrões observados; qualidade (nulos, inconsistências, padronização); implicações para a modelagem e para políticas sustentáveis. | Texto no relatório + conclusões no notebook. |
 | **6** | **Próximos passos** — Ajustes nos dados; definição formal da variável-alvo e das preditoras; técnicas de ML a testar (ex.: regressão linear, árvores, detecção de anomalias). | Relatório + planejamento no notebook. |
@@ -129,8 +167,10 @@ As fases abaixo seguem a lógica do `template_report_fase_one.ipynb`, mas o dese
 
 1. **Confirmar** qual será a **variável alvo principal** (regressão ou classificação) para o relatório da disciplina.  
 2. **Exportar** o dicionário deste MD para `dicionario_dados.xlsx` (variáveis, tipos, unidades, descrições).  
-3. **Implementar** no `daily_rates_and_tickets.ipynb`: carga da base, tratamento de vírgula decimal e datas, e as análises descritivas e gráficos das fases 3 e 4.  
-4. **Redigir** o relatório final (em cima do template) com base nos resultados do notebook, sem alterar diretamente o `template_report_fase_one.ipynb` — apenas usar como base de estrutura.
+3. **Implementar** no `daily_rates_and_tickets.ipynb`: carga da base, tratamento de vírgula decimal e datas, análises descritivas (incluindo ausentes e correlação) e gráficos das fases 3 e 4.  
+4. **(Opcional / complemento)** Rodar `one_hot_encoding_variaveis_categoricas.ipynb` após `df` estar preparado, para registrar cardinalidade e ilustrar one-hot.  
+5. **Redigir** o relatório final (em cima do template) com base nos resultados do notebook, sem alterar diretamente o `template_report_fase_one.ipynb` — apenas usar como base de estrutura.  
+6. **(Futuro)** Ao iniciar experimentos de modelagem com várias execuções, seguir o roteiro em `mlflow_planejamento.md` se for adotar MLflow.
 
 ---
 
