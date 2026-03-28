@@ -8,14 +8,18 @@ Projeto de **Introdução a Machine Learning** (mestrado em Ciência de Dados) c
 
 | Arquivo / pasta | Descrição |
 |-----------------|-----------|
-| **`DiariasEPassagens_ultimos_2_anos.csv`** | Base de dados (diárias e passagens, últimos 2 anos; não versionada se for grande — ver `.gitignore`). |
-| **`daily_rates_and_tickets.ipynb`** | **Relatório preliminar (Fase 1)** do projeto: descrição da base, dicionário, análises descritivas (3.1.1 ausentes, 3.1.2 correlação), gráficos (3.2), discussão e próximos passos. Opção A: regressão (**Valor total**). |
-| **`one_hot_encoding_variaveis_categoricas.ipynb`** | Complemento: **one-hot encoding** — cardinalidade por coluna, resumo por faixas e ilustração com `pd.get_dummies` em amostra. Depende de `df` já carregado (mesmo kernel que o relatório ou rodar antes a preparação no notebook principal). |
+| **`DiariasEPassagens_ultimos_2_anos.csv`** | Cópia “padrão” do conjunto SCDP (últimos 2 anos) usada em `daily_rates_and_tickets.ipynb`, `scdp_exploration` e `one_hot_encoding_*`. Não versionar se for grande — ver `.gitignore`. |
+| **`base_rene_estevam_deckers.csv`** | Mesmo tipo de base (mesmo esquema de colunas), com nome local para o relatório entregue em **`rene_estevam_deckers.ipynb`**. Ajuste o `read_csv` se o ficheiro tiver outro nome. |
+| **`daily_rates_and_tickets.ipynb`** | Relatório preliminar (Fase 1), alinhado ao template da disciplina: dicionário, 3.1, 3.2, discussão. Usa o CSV `DiariasEPassagens_ultimos_2_anos.csv` por defeito. |
+| **`rene_estevam_deckers.ipynb`** | Variante do relatório (mesma estrutura de análise) apontando para **`base_rene_estevam_deckers.csv`**. Mantém-se em paralelo ao `daily_rates_*`; não misturar os dois CSV no mesmo kernel sem voltar a carregar. |
+| **`one_hot_encoding_variaveis_categoricas.ipynb`** | Complemento: **one-hot encoding** — cardinalidade por coluna, resumo por faixas e ilustração com `pd.get_dummies` em amostra. Depende de `df` já carregado (mesmo kernel que **`daily_rates_and_tickets`** ou **`rene_estevam_deckers`**, ou rodar antes a preparação nesse relatório). |
 | **`template_report_fase_one.ipynb`** | Template da disciplina (estrutura do relatório; não preencher diretamente). |
 | **`pre_projeto_diarias_passagens.md`** | Documento de pré-projeto: contexto institucional (viagens/SCDP), problema, opções de ML, dicionário (resumo), fases, qualidade dos dados, referências. |
+| **`sugestoes_titulo_pre_projeto.md`** | Ideias de título para capa/relatório (e ligação aos notebooks e ao README). |
 | **`mlflow_planejamento.md`** | Roteiro futuro para **MLflow** (tracking de experimentos, métricas, artefatos) quando a etapa de modelagem avançar. |
-| **`dicionario_dados.xlsx`** | Dicionário de dados em **Excel** (23 variáveis: nome, tipo, unidade, descrição). Entrega conforme template. |
+| **`dicionario_dados.xlsx`** | Dicionário em **Excel** (23 variáveis) usado no fluxo do `daily_rates_and_tickets.ipynb`. Entrega conforme template. |
 | **`dicionario_dados.csv`** | Mesmo dicionário em CSV (separador `;`) para versionamento. |
+| **`dicionario_rene_estevam_deckers.xlsx`** | Variante de entrega com o mesmo tipo de conteúdo, referenciada no **`rene_estevam_deckers.ipynb`** (nome do ficheiro alinhado ao relatório nominal). |
 | **`scdp_exploration.ipynb`** | Notebook de exploração inicial da base (carga, primeiras análises). |
 | **`requirements.txt`** | Dependências Python (pandas, openpyxl, jupyter, matplotlib, seaborn, etc.). |
 
@@ -24,7 +28,7 @@ Projeto de **Introdução a Machine Learning** (mestrado em Ciência de Dados) c
 ## Base de dados
 
 - **Fonte:** Dados abertos — [Viagens a serviço do governo federal (SCDP)](https://dados.gov.br/dados/conjuntos-dados/viagens-a-servico-do-governo-federal-scdp), Portal da Transparência.
-- **Arquivo utilizado:** CSV com registros dos **últimos 2 anos** (ex.: `DiariasEPassagens_ultimos_2_anos.csv`).
+- **Ficheiro de trabalho:** o mesmo conjunto do portal pode aparecer como `DiariasEPassagens_ultimos_2_anos.csv` (notebooks “genéricos”) ou como cópia renomeada, p.ex. `base_rene_estevam_deckers.csv` no notebook de entrega com o seu nome.
 - **Conteúdo:** 23 colunas por registro (trecho de viagem ou lançamento de diária): órgão, unidade gestora, servidor, datas, motivo, valor total, valor diárias, valor passagem, número diárias, meio de transporte, origem/destino, etc. **Variável alvo** na regressão: **Valor total** (R$).
 
 ---
@@ -70,15 +74,15 @@ pip install -r requirements.txt
 
 ### 3. Colocar a base de dados
 
-Coloque o arquivo **`DiariasEPassagens_ultimos_2_anos.csv`** na raiz do projeto (ou ajuste o caminho no notebook).
+Coloque na raiz o CSV que o notebook vai ler: **`DiariasEPassagens_ultimos_2_anos.csv`** ou **`base_rene_estevam_deckers.csv`**, conforme o ficheiro que estiver referenciado na primeira carga de dados.
 
 ### 4. Abrir o relatório principal
 
-Abra **`daily_rates_and_tickets.ipynb`** no Jupyter ou no VS Code/Cursor e execute as células **em ordem** (carga, conversão de colunas, resumos, valores ausentes, correlação, gráficos, discussão).
+Use **`daily_rates_and_tickets.ipynb`** ou **`rene_estevam_deckers.ipynb`** (conteúdo equivalente; o segundo aponta para `base_rene_estevam_deckers.csv`). Execute as células **em ordem** até ao fim da secção que precisar (carga → numéricos → tabelas → gráficos).
 
 ### 5. (Opcional) One-hot e cardinalidade
 
-Para a análise de **categorias** e **`pd.get_dummies`**, abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo kernel** após preparar `df` no relatório principal (ou rode antes as células de carga/conversão do CSV).
+Abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo kernel** em que já existe `df` com `valor_total_num`, ou copie para lá as células de leitura e conversão do CSV que estiver a usar (**Diarias…** ou **base_rene…**).
 
 ---
 
@@ -88,7 +92,7 @@ Para a análise de **categorias** e **`pd.get_dummies`**, abra **`one_hot_encodi
 - [Sistema SCDP (novoscdp)](https://www2.scdp.gov.br/novoscdp/home.xhtml)
 - [Portal da Transparência — Viagens a Serviço](https://portaldatransparencia.gov.br/viagens/visao-geral)
 
-Documentação detalhada do pré-projeto e do dicionário: **`pre_projeto_diarias_passagens.md`**. Planejamento futuro de experimentos: **`mlflow_planejamento.md`**.
+Documentação detalhada do pré-projeto e do dicionário: **`pre_projeto_diarias_passagens.md`**. Ideias de título para capa: **`sugestoes_titulo_pre_projeto.md`**. Planejamento futuro de experimentos: **`mlflow_planejamento.md`**.
 
 ---
 

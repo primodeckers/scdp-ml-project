@@ -24,6 +24,8 @@ Documentação oficial: [https://mlflow.org/docs/latest/index.html](https://mlfl
 
 ## Encaixe neste projeto
 
+Os dados vêm do **mesmo conjunto aberto SCDP**; no disco o ficheiro pode chamar-se `DiariasEPassagens_ultimos_2_anos.csv` (fluxo genérico) ou `base_rene_estevam_deckers.csv` (cópia local no relatório nominal). O que importa para MLflow é **registar qual caminho e qual notebook** geraram o `df` da run.
+
 | Aspecto | Uso sugerido |
 |--------|----------------|
 | **Alvo** | `Valor total` (regressão), conforme Opção A do relatório |
@@ -32,7 +34,7 @@ Documentação oficial: [https://mlflow.org/docs/latest/index.html](https://mlfl
 | **Artefatos** | Gráficos (predito vs. real, resíduos), `requirements` ou hash do ambiente, notas em Markdown |
 | **Modelo** | `mlflow.sklearn.log_model` com o **Pipeline** completo (pré-processamento + estimador), para não “perder” o encoders |
 
-**Onde está a análise de encoding:** cardinalidade das categóricas e ilustração com `pd.get_dummies` (`drop_first`) estão no notebook **`one_hot_encoding_variaveis_categoricas.ipynb`** (complemento ao `daily_rates_and_tickets.ipynb`). Ao registrar runs, alinhe parâmetros de pré-processamento (quais colunas, `drop_first`, etc.) ao que foi documentado ali.
+**Onde está a análise de encoding:** cardinalidade das categóricas e ilustração com `pd.get_dummies` (`drop_first`) estão no notebook **`one_hot_encoding_variaveis_categoricas.ipynb`** (complemento ao relatório preliminar — `daily_rates_and_tickets.ipynb` ou `rene_estevam_deckers.ipynb`, conforme o que você usar para gerar `df`). Ao registrar runs, alinhe parâmetros de pré-processamento (quais colunas, `drop_first`, etc.) ao que foi documentado ali.
 
 ---
 
@@ -54,7 +56,7 @@ Documentação oficial: [https://mlflow.org/docs/latest/index.html](https://mlfl
      - `with mlflow.start_run():` … `mlflow.log_param(...)`, `mlflow.log_metric(...)`, `mlflow.log_artifact(...)`.
 
 4. **Reprodutibilidade**  
-   - Logar `random_state`, tamanho da amostra, caminho do CSV (sem commitar dados privados).  
+   - Logar `random_state`, tamanho da amostra, caminho do CSV usado (`DiariasEPassagens_ultimos_2_anos.csv` ou `base_rene_estevam_deckers.csv`, etc.) e, se fizer sentido, o notebook de origem (`daily_rates_and_tickets` vs `rene_estevam_deckers`). Não commitar dados privados.  
    - Opcional: `mlflow.log_text` com o conteúdo de `requirements.txt` ou versões de `pandas`/`sklearn`.
 
 5. **Interface**  

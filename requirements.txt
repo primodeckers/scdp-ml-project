@@ -1,3 +1,6 @@
+# scdp-ml-project — dependências dos notebooks (relatório daily_rates ou rene_estevam_deckers;
+# mesmo conjunto SCDP, CSV com nome DiariasEPassagens_... ou base_rene_estevam_deckers.csv).
+
 # Leitura de dados
 pandas>=2.0.0
 odfpy>=1.4.0

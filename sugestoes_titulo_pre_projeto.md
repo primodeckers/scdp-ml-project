@@ -2,6 +2,8 @@
 
 Pré-projeto: diárias e passagens (SCDP), regressão para previsão de valor da despesa — mestrado em Ciência de Dados, disciplina de Introdução a Machine Learning.
 
+No repositório, o texto longo do pré-projeto e o dicionário estão em **`pre_projeto_diarias_passagens.md`**; a estrutura do repo e os CSVs (`DiariasEPassagens_ultimos_2_anos.csv` vs `base_rene_estevam_deckers.csv`) estão descritos no **`README.md`**. O relatório da disciplina pode ser gerado em **`daily_rates_and_tickets.ipynb`** ou na variante **`rene_estevam_deckers.ipynb`** — mesma linha de análise, outro nome de ficheiro de dados/entrega.
+
 ---
 
 ## Foco em dados e tema

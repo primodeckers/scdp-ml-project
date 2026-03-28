@@ -1,7 +1,7 @@
 # Pré-projeto: Diárias e Passagens — Análise e Machine Learning
 
-**Base:** `DiariasEPassagens_ultimos_2_anos.csv`  
-**Relatório preliminar (Fase 1):** `daily_rates_and_tickets.ipynb`  
+**Base:** `DiariasEPassagens_ultimos_2_anos.csv` (ou cópia local equivalente, p.ex. `base_rene_estevam_deckers.csv` no notebook de entrega nominal)  
+**Relatório preliminar (Fase 1):** `daily_rates_and_tickets.ipynb` (variante com o mesmo tipo de análise: `rene_estevam_deckers.ipynb`)  
 **Complemento (one-hot / cardinalidade):** `one_hot_encoding_variaveis_categoricas.ipynb`  
 **Referência de estrutura:** `template_report_fase_one.ipynb`  
 **Planejamento futuro (experimentos):** `mlflow_planejamento.md`
@@ -56,7 +56,7 @@ Este pré-projeto usa **apenas** o arquivo CSV dos **dados abertos do conjunto S
 - **Problema de pesquisa:** Com base nos dados de diárias e passagens dos últimos 2 anos, queremos **entender e modelar** o comportamento dos gastos e, a partir daí, propor uso de **machine learning** para:
   - **Prever** valores (regressão) ou **classificar** eventos (ex.: tipo de deslocamento, motivo, meio de transporte).
   - **Detectar anomalias** (gastos atípicos) ou **agrupar** padrões (órgãos, perfis de viagem) para políticas mais sustentáveis e econômicas.
-- **Objetivo da utilização da base:** Construir um pré-projeto bem definido (com dicionário de dados e fases alinhadas ao template da disciplina), preparando o terreno para modelagem em `daily_rates_and_tickets.ipynb`, com foco em **alternativas sustentáveis e em melhor uso dos recursos**.
+- **Objetivo da utilização da base:** Construir um pré-projeto bem definido (com dicionário de dados e fases alinhadas ao template da disciplina), preparando o terreno para modelagem em `daily_rates_and_tickets.ipynb` ou na variante `rene_estevam_deckers.ipynb` (mesmo fluxo, outro nome de CSV), com foco em **alternativas sustentáveis e em melhor uso dos recursos**.
 
 ---
 
@@ -140,15 +140,15 @@ A base possui **23 colunas**. Abaixo, descrição objetiva de cada uma para uso 
 
 ## 6. Fases do pré-projeto (alinhadas ao template da disciplina)
 
-As fases abaixo seguem a lógica do `template_report_fase_one.ipynb`. O **relatório principal** fica em **`daily_rates_and_tickets.ipynb`**; o **complemento** de encoding categórico fica em **`one_hot_encoding_variaveis_categoricas.ipynb`**. O template serve só de guia de estrutura.
+As fases abaixo seguem a lógica do `template_report_fase_one.ipynb`. O **relatório principal** fica em **`daily_rates_and_tickets.ipynb`** (ou **`rene_estevam_deckers.ipynb`** se for a entrega nominal com `base_rene_estevam_deckers.csv`); o **complemento** de encoding categórico fica em **`one_hot_encoding_variaveis_categoricas.ipynb`**. O template serve só de guia de estrutura.
 
 | Fase | Conteúdo (resumo) | Onde desenvolver |
 |------|-------------------|-------------------|
-| **1** | **Descrição da base** — Fonte (SCDP/transparência), contextualização, objetivo de uso, problema de pesquisa, tipo de ML (regressão/classificação/outro) e **o que será previsto** (variável alvo). | Texto no relatório + células iniciais do `daily_rates_and_tickets.ipynb`. |
-| **2** | **Dicionário de dados** — Todas as variáveis, tipos, unidades e significados. Entregar também em Excel (`dicionario_dados.xlsx`) conforme exigência. | Este MD + arquivo Excel + referência no notebook. |
-| **3** | **Análises descritivas iniciais** — Medidas de posição e dispersão (média, mediana, min, max, quartis, dp, CV) para variáveis numéricas principais; **3.1.1** valores ausentes; **3.1.2** correlação com o target. | `daily_rates_and_tickets.ipynb`. |
+| **1** | **Descrição da base** — Fonte (SCDP/transparência), contextualização, objetivo de uso, problema de pesquisa, tipo de ML (regressão/classificação/outro) e **o que será previsto** (variável alvo). | Texto no relatório + células iniciais do `daily_rates_and_tickets.ipynb` ou `rene_estevam_deckers.ipynb`. |
+| **2** | **Dicionário de dados** — Todas as variáveis, tipos, unidades e significados. Entregar também em Excel (`dicionario_dados.xlsx`, ou `dicionario_rene_estevam_deckers.xlsx` na variante nominal) conforme exigência. | Este MD + arquivo Excel + referência no notebook. |
+| **3** | **Análises descritivas iniciais** — Medidas de posição e dispersão (média, mediana, min, max, quartis, dp, CV) para variáveis numéricas principais; **3.1.1** valores ausentes; **3.1.2** correlação com o target. | `daily_rates_and_tickets.ipynb` ou `rene_estevam_deckers.ipynb`. |
 | **3b** | **(Complemento)** Cardinalidade de categóricas e **one-hot** (`pd.get_dummies`, `drop_first`) em amostra — apoio à escolha de encoding na modelagem. | `one_hot_encoding_variaveis_categoricas.ipynb` (após `df` preparado). |
-| **4** | **Exploração gráfica** — Histogramas, boxplots, dispersão (ex.: valor total x número diárias; valor por órgão/motivo); séries temporais (gasto por mês). | `daily_rates_and_tickets.ipynb`. |
+| **4** | **Exploração gráfica** — Histogramas, boxplots, dispersão (ex.: valor total x número diárias; valor por órgão/motivo); séries temporais (gasto por mês). | `daily_rates_and_tickets.ipynb` ou `rene_estevam_deckers.ipynb`. |
 | **5** | **Discussão preliminar** — Padrões observados; qualidade (nulos, inconsistências, padronização); implicações para a modelagem e para políticas sustentáveis. | Texto no relatório + conclusões no notebook. |
 | **6** | **Próximos passos** — Ajustes nos dados; definição formal da variável-alvo e das preditoras; técnicas de ML a testar (ex.: regressão linear, árvores, detecção de anomalias). | Relatório + planejamento no notebook. |
 
@@ -166,8 +166,8 @@ As fases abaixo seguem a lógica do `template_report_fase_one.ipynb`. O **relat�
 ## 8. Próximos passos imediatos
 
 1. **Confirmar** qual será a **variável alvo principal** (regressão ou classificação) para o relatório da disciplina.  
-2. **Exportar** o dicionário deste MD para `dicionario_dados.xlsx` (variáveis, tipos, unidades, descrições).  
-3. **Implementar** no `daily_rates_and_tickets.ipynb`: carga da base, tratamento de vírgula decimal e datas, análises descritivas (incluindo ausentes e correlação) e gráficos das fases 3 e 4.  
+2. **Exportar** o dicionário deste MD para `dicionario_dados.xlsx` (variáveis, tipos, unidades, descrições), ou para o nome de entrega nominal usado no **`rene_estevam_deckers.ipynb`** (`dicionario_rene_estevam_deckers.xlsx`), mantendo o mesmo conteúdo.  
+3. **Implementar** no notebook de relatório escolhido (`daily_rates_and_tickets.ipynb` ou `rene_estevam_deckers.ipynb`): carga da base, tratamento de vírgula decimal e datas, análises descritivas (incluindo ausentes e correlação) e gráficos das fases 3 e 4.  
 4. **(Opcional / complemento)** Rodar `one_hot_encoding_variaveis_categoricas.ipynb` após `df` estar preparado, para registrar cardinalidade e ilustrar one-hot.  
 5. **Redigir** o relatório final (em cima do template) com base nos resultados do notebook, sem alterar diretamente o `template_report_fase_one.ipynb` — apenas usar como base de estrutura.  
 6. **(Futuro)** Ao iniciar experimentos de modelagem com várias execuções, seguir o roteiro em `mlflow_planejamento.md` se for adotar MLflow.
