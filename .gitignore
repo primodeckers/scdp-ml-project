@@ -7,6 +7,7 @@ env/
 DiariasEPassagens.csv
 DiariasEPassagens_ultimos_2_anos.csv
 DiariasEPassagens*.csv
+base_rene_estevam_deckers.csv
 
 # Python
 __pycache__/
