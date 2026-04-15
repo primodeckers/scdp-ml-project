@@ -2,6 +2,7 @@
 # mesmo conjunto SCDP, CSV com nome DiariasEPassagens_... ou base_rene_estevam_deckers.csv).
 
 # Leitura de dados
+numpy>=1.24.0
 pandas>=2.0.0
 odfpy>=1.4.0
 openpyxl>=3.0.0
@@ -9,10 +10,13 @@ openpyxl>=3.0.0
 # Jupyter para notebooks
 jupyter>=1.0.0
 ipykernel>=6.0.0
+ipython>=8.0.0
 
 # Visualização de dados
-matplotlib
-seaborn
-plotly
-scikit-learn
-scipy
+matplotlib>=3.7.0
+seaborn>=0.13.0
+plotly>=5.18.0
+
+# Modelagem (notebooks rene_estevam_deckers_atividade_2, etc.)
+scikit-learn>=1.3.0
+scipy>=1.10.0
