@@ -77,7 +77,7 @@ Com o *venv* ativado:
 pip install -r requirements.txt
 ```
 
-Inclui **Jupyter**, **pandas**, **scikit-learn**, **matplotlib**, **seaborn**, **plotly**, **openpyxl**, **python-docx** (para gerar o relatório em Word a partir do Markdown).
+Inclui **Jupyter**, **pandas**, **scikit-learn**, **matplotlib**, **seaborn**, **plotly**, **openpyxl** e **python-docx** (para gerar o relatório em Word a partir do Markdown).
 
 ### 3. Colocar a base de dados
 
@@ -97,7 +97,7 @@ Execute as células **em ordem** até à secção necessária (carga → prepara
 
 Abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo *kernel*** em que já existe `df` (por exemplo após carregar o CSV em `daily_rates_*` ou `rene_estevam_deckers*`), ou copie para lá as células de leitura e conversão.
 
-### 6. Relatório final (Markdown → Word → PDF)
+### 6. Relatório final (Markdown → Word)
 
 1. Edite o conteúdo em **`RELATORIO_FINAL_Atividade2_ML.md`** (e mantenha as imagens em **`figuras/`** se alterar gráficos).
 2. Gere o Word:
@@ -106,7 +106,7 @@ Abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo *kernel*** em
 python scripts/export_relatorio_docx.py
 ```
 
-O ficheiro **`RELATORIO_FINAL_Atividade2_ML.docx`** é criado/atualizado na raiz do projeto. No Microsoft Word ou LibreOffice: reveja margens e **exporte para PDF** para entrega, se a disciplina exigir PDF.
+O ficheiro **`RELATORIO_FINAL_Atividade2_ML.docx`** é criado/atualizado na raiz do projeto. Se a disciplina pedir **PDF**, exporte a partir do Word ou do LibreOffice (*Ficheiro → Guardar como / Exportar como PDF*).
 
 > O *preview* de Markdown integrado no Cursor pode não mostrar imagens locais; use **Open Preview** / **Open Preview to the Side** se precisar de pré-visualizar o `.md` com figuras.
 
