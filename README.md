@@ -15,7 +15,7 @@ Projeto de **Introdução ao Machine Learning** (mestrado em Ciência de Dados) 
 | **`rene_estevam_deckers_atividade_2.docx`** | Word gerado a partir de `RELATORIO_FINAL_Atividade2_ML.md` (`scripts/export_relatorio_docx.py`). |
 | **`figuras/`** | PNG dos gráficos referenciados no relatório (resíduos, previsto *vs* real). |
 | **`relatorio/figuras/`** | Cópia espelhada das mesmas figuras (opcional). |
-| **`scripts/export_relatorio_docx.py`** | Exporta o `.md` para `.docx` com Times New Roman 12, justificado e espaçamento 1,5. |
+| **`scripts/export_relatorio_docx.py`** | Exporta o `.md` para `.docx` com formatação do texto (margens, recuo, títulos, fonte, citações, referências); sem capa, sumário automático nem numeração no rodapé. Ver `python scripts/export_relatorio_docx.py --help`. |
 | **`daily_rates_and_tickets.ipynb`** | Relatório preliminar (Fase 1), alinhado ao template: dicionário, 3.1, 3.2, discussão. CSV por defeito: `DiariasEPassagens_ultimos_2_anos.csv`. |
 | **`rene_estevam_deckers.ipynb`** | Variante da Fase 1 com **`base_rene_estevam_deckers.csv`**. |
 | **`one_hot_encoding_variaveis_categoricas.ipynb`** | Complemento: *one-hot encoding* e cardinalidade. Depende de `df` já carregado no mesmo *kernel* ou de correr antes a preparação do CSV em uso. |
@@ -106,7 +106,11 @@ Abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo *kernel*** em
 python scripts/export_relatorio_docx.py
 ```
 
-O script lê o Markdown e grava **`rene_estevam_deckers_atividade_2.docx`** na raiz (mesmo nome base que o notebook da Atividade 2, para organização da entrega). Volte a correr o comando sempre que alterar o `.md`, as imagens ou as referências bibliográficas.
+Opcional: `--font arial`, `--margin-left` / `--margin-other` (cm), `-o caminho.docx`.
+
+O script lê o Markdown e grava **`rene_estevam_deckers_atividade_2.docx`** na raiz. Volte a correr sempre que alterar o `.md`, as imagens ou as referências. Capa, sumário e numeração de páginas, se a disciplina exigir, podes acrescentar no Word (ou no template oficial).
+
+**Referências (secção 5):** a lista final é **bibliografia** (fichas das fontes consultadas), não “citações” no sentido de trechos no meio do texto. O export aplica **sangria pendente** nessa secção (formato habitual na ABNT); se o teu template pedir outro alinhamento, ajusta no Word.
 
 Se a disciplina pedir **PDF**, exporte a partir do Word ou do LibreOffice (*Ficheiro → Guardar como / Exportar como PDF*).
 
