@@ -138,23 +138,116 @@ def preprocess_links(text: str) -> str:
     return re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 (\2)", text)
 
 
-def add_inline_runs(paragraph, text: str, size_pt: int, font_name: str) -> None:
+def _emit_run(
+    paragraph,
+    chunk: str,
+    size_pt: int,
+    font_name: str,
+    *,
+    bold: bool = False,
+    italic: bool = False,
+    code: bool = False,
+) -> None:
+    if not chunk:
+        return
+    r = paragraph.add_run(chunk)
+    if code:
+        r.font.name = "Courier New"
+        r.font.size = Pt(size_pt - 1)
+    r.bold = bold
+    r.italic = italic
+    if not code:
+        set_run_font(r, size_pt, font_name)
+    elif bold or italic:
+        # código com contexto raro: aplica só peso se necessário
+        r.bold = bold
+        r.italic = italic
+
+
+def add_inline_runs(
+    paragraph,
+    text: str,
+    size_pt: int,
+    font_name: str,
+    *,
+    bold: bool = False,
+    italic: bool = False,
+) -> None:
+    """
+    Markdown inline: `` `código` ``, **negrito**, *itálico* (inclui *aninhado* dentro de **negrito**).
+    Ordem: links, depois `, depois **, depois *.
+    """
     text = preprocess_links(text)
-    parts = re.split(r"(\*\*[^*]+\*\*|`[^`]+`)", text)
-    for part in parts:
-        if not part:
+    i = 0
+    n = len(text)
+    while i < n:
+        if text[i] == "`":
+            j = text.find("`", i + 1)
+            if j == -1:
+                _emit_run(paragraph, text[i : i + 1], size_pt, font_name, bold=bold, italic=italic)
+                i += 1
+                continue
+            chunk = text[i + 1 : j]
+            _emit_run(
+                paragraph,
+                chunk,
+                size_pt,
+                font_name,
+                bold=bold,
+                italic=italic,
+                code=True,
+            )
+            i = j + 1
             continue
-        if part.startswith("**") and part.endswith("**") and len(part) > 4:
-            r = paragraph.add_run(part[2:-2])
-            r.bold = True
-            set_run_font(r, size_pt, font_name)
-        elif part.startswith("`") and part.endswith("`") and len(part) > 2:
-            r = paragraph.add_run(part[1:-1])
-            r.font.name = "Courier New"
-            r.font.size = Pt(size_pt - 1)
-        else:
-            r = paragraph.add_run(part)
-            set_run_font(r, size_pt, font_name)
+
+        if text.startswith("**", i):
+            j = text.find("**", i + 2)
+            if j == -1:
+                _emit_run(paragraph, text[i : i + 2], size_pt, font_name, bold=bold, italic=italic)
+                i += 2
+                continue
+            inner = text[i + 2 : j]
+            add_inline_runs(
+                paragraph,
+                inner,
+                size_pt,
+                font_name,
+                bold=True,
+                italic=italic,
+            )
+            i = j + 2
+            continue
+
+        if text[i] == "*":
+            j = text.find("*", i + 1)
+            if j == -1:
+                _emit_run(paragraph, text[i : i + 1], size_pt, font_name, bold=bold, italic=italic)
+                i += 1
+                continue
+            inner = text[i + 1 : j]
+            add_inline_runs(
+                paragraph,
+                inner,
+                size_pt,
+                font_name,
+                bold=bold,
+                italic=True,
+            )
+            i = j + 1
+            continue
+
+        start = i
+        while i < n and text[i] not in "`*":
+            i += 1
+        if i > start:
+            _emit_run(
+                paragraph,
+                text[start:i],
+                size_pt,
+                font_name,
+                bold=bold,
+                italic=italic,
+            )
 
 
 def is_table_row(line: str) -> bool:
