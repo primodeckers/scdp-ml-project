@@ -1,0 +1,6 @@
+Coloque aqui as duas imagens exportadas do notebook, com estes nomes exatos:
+
+  1) residuos_vs_predito_rf.png   — gráfico de resíduos vs valor predito (Random Forest)
+  2) predito_vs_real_rf.png      — gráfico valores reais vs preditos (amostra)
+
+Formato recomendado: PNG. Depois de salvar, abra o RELATORIO_FINAL_Atividade2_ML.md no preview do Cursor/VS Code para ver se as figuras aparecem.

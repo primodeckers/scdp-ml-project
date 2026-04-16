@@ -1,35 +1,40 @@
 # scdp-ml-project
 
-Projeto de **Introdução a Machine Learning** (mestrado em Ciência de Dados) com foco em **diárias e passagens** do governo federal (SCDP — Sistema de Custos de Diárias e Passagens). Objetivo: análise exploratória e modelagem de **regressão** para prever valor da despesa, com vistas a orçamento, redução de custos e sustentabilidade.
+Projeto de **Introdução ao Machine Learning** (mestrado em Ciência de Dados) com foco em **diárias e passagens** do governo federal (SCDP — Sistema de Custos de Diárias e Passagens). Objetivo: análise exploratória e modelagem de **regressão** para prever o valor da despesa, com vistas a transparência, orçamento e análise de custos.
 
 ---
 
 ## Estrutura do repositório
 
-| Arquivo / pasta | Descrição |
-|-----------------|-----------|
-| **`DiariasEPassagens_ultimos_2_anos.csv`** | Cópia “padrão” do conjunto SCDP (últimos 2 anos) usada em `daily_rates_and_tickets.ipynb`, `scdp_exploration` e `one_hot_encoding_*`. Não versionar se for grande — ver `.gitignore`. |
-| **`base_rene_estevam_deckers.csv`** | Mesmo tipo de base (mesmo esquema de colunas), com nome local para o relatório entregue em **`rene_estevam_deckers.ipynb`**. Ajuste o `read_csv` se o ficheiro tiver outro nome. |
-| **`daily_rates_and_tickets.ipynb`** | Relatório preliminar (Fase 1), alinhado ao template da disciplina: dicionário, 3.1, 3.2, discussão. Usa o CSV `DiariasEPassagens_ultimos_2_anos.csv` por defeito. |
-| **`rene_estevam_deckers.ipynb`** | Variante do relatório (mesma estrutura de análise) apontando para **`base_rene_estevam_deckers.csv`**. Mantém-se em paralelo ao `daily_rates_*`; não misturar os dois CSV no mesmo kernel sem voltar a carregar. |
-| **`one_hot_encoding_variaveis_categoricas.ipynb`** | Complemento: **one-hot encoding** — cardinalidade por coluna, resumo por faixas e ilustração com `pd.get_dummies` em amostra. Depende de `df` já carregado (mesmo kernel que **`daily_rates_and_tickets`** ou **`rene_estevam_deckers`**, ou rodar antes a preparação nesse relatório). |
-| **`template_report_fase_one.ipynb`** | Template da disciplina (estrutura do relatório; não preencher diretamente). |
-| **`pre_projeto_diarias_passagens.md`** | Documento de pré-projeto: contexto institucional (viagens/SCDP), problema, opções de ML, dicionário (resumo), fases, qualidade dos dados, referências. |
-| **`sugestoes_titulo_pre_projeto.md`** | Ideias de título para capa/relatório (e ligação aos notebooks e ao README). |
-| **`mlflow_planejamento.md`** | Roteiro futuro para **MLflow** (tracking de experimentos, métricas, artefatos) quando a etapa de modelagem avançar. |
-| **`dicionario_dados.xlsx`** | Dicionário em **Excel** (23 variáveis) usado no fluxo do `daily_rates_and_tickets.ipynb`. Entrega conforme template. |
-| **`dicionario_dados.csv`** | Mesmo dicionário em CSV (separador `;`) para versionamento. |
-| **`dicionario_rene_estevam_deckers.xlsx`** | Variante de entrega com o mesmo tipo de conteúdo, referenciada no **`rene_estevam_deckers.ipynb`** (nome do ficheiro alinhado ao relatório nominal). |
-| **`scdp_exploration.ipynb`** | Notebook de exploração inicial da base (carga, primeiras análises). |
-| **`requirements.txt`** | Dependências Python (pandas, openpyxl, jupyter, matplotlib, seaborn, etc.). |
+| Ficheiro / pasta | Descrição |
+|------------------|-----------|
+| **`DiariasEPassagens_ultimos_2_anos.csv`** | Cópia típica do conjunto SCDP (últimos 2 anos) usada em `daily_rates_and_tickets.ipynb`, `scdp_exploration` e `one_hot_encoding_*`. Não versionar se for muito grande — ver `.gitignore`. |
+| **`base_rene_estevam_deckers.csv`** | Mesmo esquema de colunas, nome local para o relatório em **`rene_estevam_deckers.ipynb`**. Ajuste o `read_csv` se o ficheiro tiver outro nome. |
+| **`rene_estevam_deckers_atividade_2.ipynb`** | **Atividade 2 (modelagem):** pré-processamento, *pipelines* scikit-learn, Ridge / HistGradientBoosting / Random Forest, validação cruzada, `RandomizedSearchCV`, métricas no teste (RMSE, MAE, R²). Variável alvo: **Valor total**. |
+| **`RELATORIO_FINAL_Atividade2_ML.md`** | Texto do relatório final (Markdown), alinhado ao template da disciplina. |
+| **`RELATORIO_FINAL_Atividade2_ML.docx`** | Versão Word gerada a partir do `.md` (regenerável com o script abaixo). |
+| **`figuras/`** | PNG dos gráficos referenciados no relatório (resíduos, previsto *vs* real). |
+| **`relatorio/figuras/`** | Cópia espelhada das mesmas figuras (opcional). |
+| **`scripts/export_relatorio_docx.py`** | Exporta o `.md` para `.docx` com Times New Roman 12, justificado e espaçamento 1,5. |
+| **`daily_rates_and_tickets.ipynb`** | Relatório preliminar (Fase 1), alinhado ao template: dicionário, 3.1, 3.2, discussão. CSV por defeito: `DiariasEPassagens_ultimos_2_anos.csv`. |
+| **`rene_estevam_deckers.ipynb`** | Variante da Fase 1 com **`base_rene_estevam_deckers.csv`**. |
+| **`one_hot_encoding_variaveis_categoricas.ipynb`** | Complemento: *one-hot encoding* e cardinalidade. Depende de `df` já carregado no mesmo *kernel* ou de correr antes a preparação do CSV em uso. |
+| **`template_report_fase_one.ipynb`** | Template da disciplina (estrutura; não preencher diretamente). |
+| **`pre_projeto_diarias_passagens.md`** | Pré-projeto: contexto, problema, ML, dicionário (resumo), fases, qualidade dos dados, referências. |
+| **`sugestoes_titulo_pre_projeto.md`** | Ideias de título para capa/relatório. |
+| **`mlflow_planejamento.md`** | Roteiro futuro para **MLflow** (experimentos e métricas). |
+| **`dicionario_dados.xlsx`** / **`dicionario_dados.csv`** | Dicionário (23 variáveis) no fluxo `daily_rates_and_tickets.ipynb`. |
+| **`dicionario_rene_estevam_deckers.xlsx`** | Variante referenciada em **`rene_estevam_deckers.ipynb`**. |
+| **`scdp_exploration.ipynb`** | Exploração inicial (carga, primeiras análises). |
+| **`requirements.txt`** | Dependências Python: ver secção [Como rodar](#como-rodar). |
 
 ---
 
 ## Base de dados
 
-- **Fonte:** Dados abertos — [Viagens a serviço do governo federal (SCDP)](https://dados.gov.br/dados/conjuntos-dados/viagens-a-servico-do-governo-federal-scdp), Portal da Transparência.
-- **Ficheiro de trabalho:** o mesmo conjunto do portal pode aparecer como `DiariasEPassagens_ultimos_2_anos.csv` (notebooks “genéricos”) ou como cópia renomeada, p.ex. `base_rene_estevam_deckers.csv` no notebook de entrega com o seu nome.
-- **Conteúdo:** 23 colunas por registro (trecho de viagem ou lançamento de diária): órgão, unidade gestora, servidor, datas, motivo, valor total, valor diárias, valor passagem, número diárias, meio de transporte, origem/destino, etc. **Variável alvo** na regressão: **Valor total** (R$).
+- **Fonte:** [Viagens a serviço do governo federal (SCDP)](https://dados.gov.br/dados/conjuntos-dados/viagens-a-servico-do-governo-federal-scdp) (dados.gov.br / transparência).
+- **Ficheiro de trabalho:** `DiariasEPassagens_ultimos_2_anos.csv` ou `base_rene_estevam_deckers.csv`, conforme o notebook.
+- **Conteúdo:** cerca de 23 colunas por registro (órgão, UG, datas, motivo, valores, meio de transporte, origem/destino, etc.). Na regressão da Atividade 2, a **variável alvo** é **Valor total** (R$).
 
 ---
 
@@ -66,36 +71,57 @@ source .venv/bin/activate
 
 ### 2. Instalar dependências
 
-Com o venv ativado:
+Com o *venv* ativado:
 
 ```bash
 pip install -r requirements.txt
 ```
 
+Inclui **Jupyter**, **pandas**, **scikit-learn**, **matplotlib**, **seaborn**, **plotly**, **openpyxl**, **python-docx** (para gerar o relatório em Word a partir do Markdown).
+
 ### 3. Colocar a base de dados
 
-Coloque na raiz o CSV que o notebook vai ler: **`DiariasEPassagens_ultimos_2_anos.csv`** ou **`base_rene_estevam_deckers.csv`**, conforme o ficheiro que estiver referenciado na primeira carga de dados.
+Na raiz do projeto, coloque o CSV que o notebook vai ler: **`DiariasEPassagens_ultimos_2_anos.csv`** ou **`base_rene_estevam_deckers.csv`**, conforme referenciado na primeira célula de carga.
 
-### 4. Abrir o relatório principal
+### 4. Notebooks principais
 
-Use **`daily_rates_and_tickets.ipynb`** ou **`rene_estevam_deckers.ipynb`** (conteúdo equivalente; o segundo aponta para `base_rene_estevam_deckers.csv`). Execute as células **em ordem** até ao fim da secção que precisar (carga → numéricos → tabelas → gráficos).
+| Objetivo | Notebook |
+|----------|----------|
+| Fase 1 / EDA (fluxo genérico) | `daily_rates_and_tickets.ipynb` |
+| Fase 1 / EDA (cópia `base_rene_…`) | `rene_estevam_deckers.ipynb` |
+| **Atividade 2 — modelagem** | `rene_estevam_deckers_atividade_2.ipynb` |
+
+Execute as células **em ordem** até à secção necessária (carga → preparação → modelagem → gráficos).
 
 ### 5. (Opcional) One-hot e cardinalidade
 
-Abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo kernel** em que já existe `df` com `valor_total_num`, ou copie para lá as células de leitura e conversão do CSV que estiver a usar (**Diarias…** ou **base_rene…**).
+Abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo *kernel*** em que já existe `df` (por exemplo após carregar o CSV em `daily_rates_*` ou `rene_estevam_deckers*`), ou copie para lá as células de leitura e conversão.
+
+### 6. Relatório final (Markdown → Word → PDF)
+
+1. Edite o conteúdo em **`RELATORIO_FINAL_Atividade2_ML.md`** (e mantenha as imagens em **`figuras/`** se alterar gráficos).
+2. Gere o Word:
+
+```bash
+python scripts/export_relatorio_docx.py
+```
+
+O ficheiro **`RELATORIO_FINAL_Atividade2_ML.docx`** é criado/atualizado na raiz do projeto. No Microsoft Word ou LibreOffice: reveja margens e **exporte para PDF** para entrega, se a disciplina exigir PDF.
+
+> O *preview* de Markdown integrado no Cursor pode não mostrar imagens locais; use **Open Preview** / **Open Preview to the Side** se precisar de pré-visualizar o `.md` com figuras.
 
 ---
 
 ## Referências
 
-- [dados.gov.br — Conjunto SCDP](https://dados.gov.br/dados/conjuntos-dados/viagens-a-servico-do-governo-federal-scdp)
+- [dados.gov.br — conjunto SCDP](https://dados.gov.br/dados/conjuntos-dados/viagens-a-servico-do-governo-federal-scdp)
 - [Sistema SCDP (novoscdp)](https://www2.scdp.gov.br/novoscdp/home.xhtml)
 - [Portal da Transparência — Viagens a Serviço](https://portaldatransparencia.gov.br/viagens/visao-geral)
 
-Documentação detalhada do pré-projeto e do dicionário: **`pre_projeto_diarias_passagens.md`**. Ideias de título para capa: **`sugestoes_titulo_pre_projeto.md`**. Planejamento futuro de experimentos: **`mlflow_planejamento.md`**.
+Documentação complementar: **`pre_projeto_diarias_passagens.md`**, **`sugestoes_titulo_pre_projeto.md`**, **`mlflow_planejamento.md`**.
 
 ---
 
 ## Licença
 
-O **código, notebooks e documentação** deste repositório estão sob a **MIT License** — veja o arquivo [LICENSE](LICENSE). Os **dados** da base (diárias e passagens) vêm de conjuntos de dados abertos do governo federal e estão sujeitos às condições de uso da fonte (dados.gov.br / Portal da Transparência).
+O **código, notebooks e documentação** deste repositório estão sob a **MIT License** — veja o ficheiro [LICENSE](LICENSE). Os **dados** da base (diárias e passagens) vêm de conjuntos abertos do governo federal e estão sujeitos às condições de uso da fonte (dados.gov.br / Portal da Transparência).
