@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Exporta RELATORIO_FINAL_Atividade2_ML.md para .docx com formatação próxima ao template:
-Times New Roman 12 pt, justificado, espaçamento 1,5.
+Exporta RELATORIO_FINAL_Atividade2_ML.md para rene_estevam_deckers_atividade_2.docx
+(formatação próxima ao template: Times New Roman 12 pt, justificado, espaçamento 1,5).
+
 Requer: pip install python-docx
 """
 from __future__ import annotations
@@ -16,7 +17,7 @@ from docx.shared import Cm, Pt
 
 ROOT = Path(__file__).resolve().parent.parent
 MD_PATH = ROOT / "RELATORIO_FINAL_Atividade2_ML.md"
-OUT_PATH = ROOT / "RELATORIO_FINAL_Atividade2_ML.docx"
+OUT_PATH = ROOT / "rene_estevam_deckers_atividade_2.docx"
 
 
 def set_run_font(run, size_pt: int = 12) -> None:

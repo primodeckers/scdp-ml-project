@@ -11,8 +11,8 @@ Projeto de **Introdução ao Machine Learning** (mestrado em Ciência de Dados) 
 | **`DiariasEPassagens_ultimos_2_anos.csv`** | Cópia típica do conjunto SCDP (últimos 2 anos) usada em `daily_rates_and_tickets.ipynb`, `scdp_exploration` e `one_hot_encoding_*`. Não versionar se for muito grande — ver `.gitignore`. |
 | **`base_rene_estevam_deckers.csv`** | Mesmo esquema de colunas, nome local para o relatório em **`rene_estevam_deckers.ipynb`**. Ajuste o `read_csv` se o ficheiro tiver outro nome. |
 | **`rene_estevam_deckers_atividade_2.ipynb`** | **Atividade 2 (modelagem):** pré-processamento, *pipelines* scikit-learn, Ridge / HistGradientBoosting / Random Forest, validação cruzada, `RandomizedSearchCV`, métricas no teste (RMSE, MAE, R²). Variável alvo: **Valor total**. |
-| **`RELATORIO_FINAL_Atividade2_ML.md`** | Texto do relatório final (Markdown), alinhado ao template da disciplina. |
-| **`RELATORIO_FINAL_Atividade2_ML.docx`** | Versão Word gerada a partir do `.md` (regenerável com o script abaixo). |
+| **`RELATORIO_FINAL_Atividade2_ML.md`** | Texto do relatório final (Markdown): metodologia, resultados, figuras com breve interpretação, limitações, conclusão e referências. |
+| **`rene_estevam_deckers_atividade_2.docx`** | Word gerado a partir de `RELATORIO_FINAL_Atividade2_ML.md` (`scripts/export_relatorio_docx.py`). |
 | **`figuras/`** | PNG dos gráficos referenciados no relatório (resíduos, previsto *vs* real). |
 | **`relatorio/figuras/`** | Cópia espelhada das mesmas figuras (opcional). |
 | **`scripts/export_relatorio_docx.py`** | Exporta o `.md` para `.docx` com Times New Roman 12, justificado e espaçamento 1,5. |
@@ -99,14 +99,16 @@ Abra **`one_hot_encoding_variaveis_categoricas.ipynb`** no **mesmo *kernel*** em
 
 ### 6. Relatório final (Markdown → Word)
 
-1. Edite o conteúdo em **`RELATORIO_FINAL_Atividade2_ML.md`** (e mantenha as imagens em **`figuras/`** se alterar gráficos).
-2. Gere o Word:
+1. Edite o conteúdo em **`RELATORIO_FINAL_Atividade2_ML.md`** (fonte do texto). As figuras PNG usadas no PDF/Word devem estar em **`figuras/`** (caminhos relativos no `.md`).
+2. Gere ou atualize o Word:
 
 ```bash
 python scripts/export_relatorio_docx.py
 ```
 
-O ficheiro **`RELATORIO_FINAL_Atividade2_ML.docx`** é criado/atualizado na raiz do projeto. Se a disciplina pedir **PDF**, exporte a partir do Word ou do LibreOffice (*Ficheiro → Guardar como / Exportar como PDF*).
+O script lê o Markdown e grava **`rene_estevam_deckers_atividade_2.docx`** na raiz (mesmo nome base que o notebook da Atividade 2, para organização da entrega). Volte a correr o comando sempre que alterar o `.md`, as imagens ou as referências bibliográficas.
+
+Se a disciplina pedir **PDF**, exporte a partir do Word ou do LibreOffice (*Ficheiro → Guardar como / Exportar como PDF*).
 
 > O *preview* de Markdown integrado no Cursor pode não mostrar imagens locais; use **Open Preview** / **Open Preview to the Side** se precisar de pré-visualizar o `.md` com figuras.
 
